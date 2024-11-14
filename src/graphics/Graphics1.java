@@ -7,15 +7,57 @@ public class Graphics1 {
   public static final Graphics1 gp = new Graphics1();
 
   public static void main(String[] args) {
-    System.out.print("Enter char: ");
-    char c = scanner.next().charAt(0);
+    char character;
+    byte lines;
 
-    // System.out.println(gp.graphic1((byte) 12, c));
-    // System.out.println(gp.graphic2((byte) 12, c));
-    // System.out.println(gp.graphic3((byte) 12, c));
-    // System.out.println(gp.graphic4((byte) 12, c));
-    // System.out.println(gp.graphic5((byte) 12, c));
-    System.out.println(gp.graphic6((byte) 12));
+    byte option = gp.menu();
+
+    switch (option) {
+      case 1:
+        System.out.print("Enter char: ");
+        character = scanner.next().charAt(0);
+        lines = dataEntryByte("Enter lines: ");
+
+        System.out.println(gp.graphic1((byte) lines, character));
+        break;
+
+      case 2:
+        System.out.print("Enter char: ");
+        character = scanner.next().charAt(0);
+        lines = dataEntryByte("Enter lines: ");
+
+        System.out.println(gp.graphic2((byte) lines, character));
+        break;
+      case 3:
+        System.out.print("Enter char: ");
+        character = scanner.next().charAt(0);
+        lines = dataEntryByte("Enter lines: ");
+
+        System.out.println(gp.graphic3((byte) lines, character));
+        break;
+      case 4:
+        System.out.print("Enter char: ");
+        character = scanner.next().charAt(0);
+        lines = dataEntryByte("Enter lines: ");
+
+        System.out.println(gp.graphic4((byte) lines, character));
+        break;
+      case 5:
+        System.out.print("Enter char: ");
+        character = scanner.next().charAt(0);
+        lines = dataEntryByte("Enter lines: ");
+
+        System.out.println(gp.graphic5((byte) lines, character));
+        break;
+      case 6:
+        lines = dataEntryByte("Enter lines: ");
+
+        System.out.println(gp.graphic6((byte) lines));
+        break;
+      case 0:
+        System.out.println("BYE!");
+        break;
+    }
   }
 
   public String graphic1(byte lines, char c) {
@@ -78,7 +120,7 @@ public class Graphics1 {
     return total;
   }
 
-  public String graphic5(byte lines, char c){
+  public String graphic5(byte lines, char c) {
     String total = "";
 
     int j = 1;
@@ -86,38 +128,37 @@ public class Graphics1 {
     for (int i = 1; i <= lines; i++) {
       String charPlusSpace = Character.toString(c).repeat(j);
 
-      
       total += " ".repeat(lines - i) + charPlusSpace;
-      
+
       if (i < lines) {
         total += '\n';
       }
-      
+
       j += 2;
     }
 
     return total;
   }
 
-  public String graphic6(byte lines){
+  public String graphic6(byte lines) {
     String total = "";
     String c = "xo~*+";
 
     int j = 1;
 
     for (int i = 1; i <= lines; i++) {
-      int randomNumber = (int) Math.floor(Math.random() * 5);
+      total += " ".repeat(lines - i);
 
-      String d = Character.toString(c.charAt(randomNumber));
+      for (int k = 1; k <= j; k++) {
+        int randomNumber = (int) Math.floor(Math.random() * 5);
 
-      String charPlusSpace = d.repeat(j);
-      
-      total += " ".repeat(lines - i) + charPlusSpace;
-      
+        total += Character.toString(c.charAt(randomNumber));
+      }
+
       if (i < lines) {
         total += '\n';
       }
-      
+
       j += 2;
     }
 
@@ -152,6 +193,22 @@ public class Graphics1 {
         scanner.next(); // Consume scanner
         System.err.println("Error! Insert a number");
         System.out.print(text);
+      }
+    }
+    return number;
+  }
+
+  public static byte dataEntryByte(String text) {
+    byte number = 0;
+    System.out.print(text);
+    boolean isValid = false;
+    while (!isValid) {
+      if (scanner.hasNextByte()) {
+        number = scanner.nextByte();
+        isValid = true;
+      } else {
+        scanner.next(); // Consume scanner
+        System.err.print("Error! " + text);
       }
     }
     return number;
