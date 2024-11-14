@@ -42,4 +42,52 @@ public class DataEntry {
     }
     return number;
   }
+
+  public static int dataEntryInt(String text) {
+    int number = 0;
+    System.out.print(text);
+    boolean isValid = false;
+    while (!isValid) {
+      if (scanner.hasNextInt()) {
+        number = scanner.nextInt();
+        isValid = true;
+      } else {
+        scanner.next(); // Consume scanner
+        System.err.print("Error! " + text);
+      }
+    }
+    return number;
+  }
+
+  public static float dataEntryFloat(String text) {
+    float number = 0;
+    System.out.print(text);
+    boolean isValid = false;
+    while (!isValid) {
+      if (scanner.hasNextFloat()) {
+        number = scanner.nextFloat();
+        isValid = true;
+      } else {
+        scanner.next(); // Consume scanner
+        System.err.print("Error! " + text);
+      }
+    }
+    return number;
+  }
+
+  public static double dataEntryDouble(String text) {
+    double number = 0;
+    System.out.print(text);
+    boolean isValid = false;
+    while (!isValid) {
+      if (scanner.hasNextDouble()) {
+        number = scanner.nextDouble();
+        isValid = true;
+      } else {
+        scanner.next(); // Consume scanner
+        System.err.print("Error! " + text);
+      }
+    }
+    return number;
+  }
 }
