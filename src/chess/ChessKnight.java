@@ -233,6 +233,8 @@ public class ChessKnight {
   public void moveHorse(String[][] board, byte[] pos, byte[] choice){
     board[choice[0]][choice[1]] = "HB";
     board[pos[0]][pos[1]] = "--";
+    pos[0] = choice[0];
+    pos[1] = choice[1];
   }
 
   public static byte menu() {
