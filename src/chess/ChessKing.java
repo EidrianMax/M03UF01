@@ -13,17 +13,12 @@ public class ChessKing {
     }
 
     byte[] king = chess.placePiece(board, "KB");
-    System.out.println(chess.showBoard(board));
-    board[king[0] - 1][king[1]] = "0 ";
-    board[king[0] - 1][king[1] - 1] = "1 ";
-    board[king[0]][king[1] - 1] = "2 ";
-    board[king[0] + 1][king[1] - 1] = "3 ";
-    System.out.println(chess.showBoard(board));
+    System.out.println(chess.showBoard(chess.showMovementsKing(board, king)));
   }
 
   public byte[] placePiece(String[][] board, String piece){
-    byte randomX = (byte) (Math.random() * 8);
-    byte randomY = (byte) (Math.random() * 8);
+    byte randomX = 6;
+    byte randomY = 0;
 
     board[randomX][randomY] = piece;
 
@@ -54,10 +49,143 @@ public class ChessKing {
 
     int count = 0;
 
-    board[pos[0]][pos[1] - 1] = "0 ";
+    if(pos[0] >= 1 && pos[1] >= 0) {
+    	boardClone[pos[0] - 1][pos[1]] = count + " ";
+    	count++;
+    }
+    
+    if(pos[0] >= 1 && pos[1] >= 1) {
+    	boardClone[pos[0] - 1][pos[1] - 1] = count + " ";
+    	count++;
+    }
+    
+    if(pos[0] >= 0 && pos[1] >= 1) {
+    	boardClone[pos[0]][pos[1] - 1] = count + " ";
+    	count++;
+    }
+    
+    if(pos[0] <= boardClone.length - 2 && pos[1] >= 1) {
+    	boardClone[pos[0] + 1][pos[1] - 1] = count + " ";
+    	count++;
+    }
+    
+    if(pos[0] <= boardClone.length - 2 && pos[1] >= 0) {
+    	boardClone[pos[0] + 1][pos[1]] = count + " ";
+    	count++;
+    }
+    
+    if(pos[0] <= boardClone.length - 1 && pos[1] <= boardClone.length - 2) {
+    	boardClone[pos[0] + 1][pos[1] + 1] = count + " ";
+    	count++;
+    }
+    
+    if(pos[1] <= boardClone.length - 2) {
+    	boardClone[pos[0]][pos[1] + 1] = count + " ";
+    	count++;
+    }
+    
+    if(pos[0] >= 1 && pos[1] <= boardClone.length - 2) {
+    	boardClone[pos[0] - 1][pos[1] + 1] = count + " ";
+    	count++;
+    }
 
-    String[][] str = {};
+    return boardClone;
+  }
 
-    return str;
+  public byte[][] possibleMovesKing(String[][] board, byte[] pos){
+    int count = 0;
+
+    if(pos[0] >= 1 && pos[1] >= 0) {
+    	count++;
+    }
+    
+    if(pos[0] >= 1 && pos[1] >= 1) {
+    	count++;
+    }
+    
+    if(pos[0] >= 0 && pos[1] >= 1) {
+    	count++;
+    }
+    
+    if(pos[0] <= board.length - 2 && pos[1] >= 1) {
+    	count++;
+    }
+    
+    if(pos[0] <= board.length - 2 && pos[1] >= 0) {
+    	count++;
+    }
+    
+    if(pos[0] <= board.length - 1 && pos[1] <= board.length - 2) {
+    	count++;
+    }
+    
+    if(pos[1] <= board.length - 2) {
+    	count++;
+    }
+    
+    if(pos[0] >= 1 && pos[1] <= board.length - 2) {
+    	count++;
+    }
+
+    byte[][] arr = new byte[count][2];
+
+    int index = 0;
+
+    if(pos[0] >= 1 && pos[1] >= 0) {
+      arr[index][0] = (byte) (pos[0] - 1);
+      arr[index][1] = (byte) pos[1];
+    	index++;
+    }
+    
+    if(pos[0] >= 1 && pos[1] >= 1) {
+      arr[index][0] = (byte) (pos[0] - 1);
+      arr[index][1] = (byte) (pos[1] - 1);
+    	index++;
+    }
+    
+    if(pos[0] >= 0 && pos[1] >= 1) {
+      arr[index][0] = (byte) (pos[0]);
+      arr[index][1] = (byte) (pos[1] - 1);
+    	index++;
+    }
+    
+    if(pos[0] <= board.length - 2 && pos[1] >= 1) {
+      arr[index][0] = (byte) (pos[0] + 1);
+      arr[index][1] = (byte) (pos[1] - 1);
+    	index++;
+    }
+    
+    if(pos[0] <= board.length - 2 && pos[1] >= 0) {
+      arr[index][0] = (byte) (pos[0] + 1);
+      arr[index][1] = (byte) (pos[1]);
+    	index++;
+    }
+    
+    if(pos[0] <= board.length - 1 && pos[1] <= board.length - 2) {
+      arr[index][0] = (byte) (pos[0] + 1);
+      arr[index][1] = (byte) (pos[1] + 1);
+    	index++;
+    }
+    
+    if(pos[1] <= board.length - 2) {
+      arr[index][0] = (byte) (pos[0]);
+      arr[index][1] = (byte) (pos[1] + 1);
+    	index++;
+    }
+    
+    if(pos[0] >= 1 && pos[1] <= board.length - 2) {
+      arr[index][0] = (byte) (pos[0] - 1);
+      arr[index][1] = (byte) (pos[1] + 1);
+    	index++;
+    }
+
+    return arr;
+  }
+
+  public void moveKing(String[][] board, byte[] pos, byte[] choice){
+    board[choice[0]][choice[1]] = "KB";
+    board[pos[0]][pos[1]] = "--";
+    pos[0] = choice[0];
+    pos[1] = choice[1];
   }
 }
